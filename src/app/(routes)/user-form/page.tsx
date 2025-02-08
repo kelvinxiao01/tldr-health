@@ -234,7 +234,7 @@ export default function Home() {
           {/* Specialist visits */}
           <div>
             <p className="mb-2 font-medium text-gray-700">
-              Do you need frequent specialist visits
+              Do you need frequent specialist visits?
             </p>
             <div className="flex space-x-4">
               <label className="flex items-center">
