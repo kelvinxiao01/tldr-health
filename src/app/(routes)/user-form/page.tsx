@@ -65,8 +65,7 @@ export default function Home() {
           {/* Gender field */}
           <div className="flex flex-col">
             <label className="mb-2 font-medium text-gray-700" htmlFor="gender">
-              What is your gender? (Some plans offer better coverage for
-              maternity care.)
+              What is your gender?
             </label>
             <select
               id="gender"
@@ -85,9 +84,7 @@ export default function Home() {
           {/* Age field */}
           <div className="flex flex-col">
             <label className="mb-2 font-medium text-gray-700" htmlFor="age">
-              What is your age? (Younger individuals may prefer high‑deductible,
-              low‑premium plans, while older individuals may need more
-              comprehensive coverage.)
+              What is your age?
             </label>
             <input
               id="age"
@@ -169,7 +166,7 @@ export default function Home() {
           <div>
             <p className="mb-2 font-medium text-gray-700">
               Are you currently pregnant or planning to become pregnant in the
-              next year? (Maternity care is important in plan selection.)
+              next year?
             </p>
             <div className="flex space-x-4">
               <label className="flex items-center">
@@ -203,8 +200,7 @@ export default function Home() {
           {/* Smoking */}
           <div>
             <p className="mb-2 font-medium text-gray-700">
-              Do you smoke or use tobacco? (Smokers often have higher healthcare
-              costs and need better coverage.)
+              Do you smoke or use tobacco?
             </p>
             <div className="flex space-x-4">
               <label className="flex items-center">
@@ -238,9 +234,7 @@ export default function Home() {
           {/* Specialist visits */}
           <div>
             <p className="mb-2 font-medium text-gray-700">
-              Do you need frequent specialist visits (e.g., cardiologist,
-              endocrinologist)? (Plans with strong specialist coverage may be
-              needed.)
+              Do you need frequent specialist visits
             </p>
             <div className="flex space-x-4">
               <label className="flex items-center">
@@ -274,8 +268,8 @@ export default function Home() {
           {/* Provider preference */}
           <div>
             <p className="mb-2 font-medium text-gray-700">
-              Do you prefer having more provider choices (PPO) or lower costs
-              with a limited network (HMO)?
+              Do you prefer having more provider choices or lower costs with a
+              limited network?
             </p>
             <div className="flex space-x-4">
               <label className="flex items-center">
@@ -310,8 +304,7 @@ export default function Home() {
           <div>
             <p className="mb-2 font-medium text-gray-700">
               Do you travel frequently or live in multiple locations throughout
-              the year? (PPO and national network plans are better for
-              travelers.)
+              the year?
             </p>
             <div className="flex space-x-4">
               <label className="flex items-center">
