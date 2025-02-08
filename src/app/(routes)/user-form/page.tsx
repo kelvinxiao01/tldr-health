@@ -2,8 +2,11 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Progress } from "@/components/ui/progress";
 
+const apiUrl = "http://localhost:8000";
+
 // Define the shape of the form data
 interface FormData {
+  name: string;
   gender: string;
   age: string;
   annualIncome: string;
@@ -13,10 +16,15 @@ interface FormData {
   specialistVisits: string;
   providerPreference: string;
   travel: string;
+  height: string;
+  weight: string;
 }
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [totalMedicalExpenditure, setTotalMedicalExpenditure] = useState();
   const [formData, setFormData] = useState<FormData>({
+    name: "",
     gender: "",
     age: "",
     annualIncome: "",
@@ -26,11 +34,15 @@ export default function Home() {
     specialistVisits: "",
     providerPreference: "",
     travel: "",
+    height: "",
+    weight: "",
   });
   // currentPage: 0 = Personal Information, 1 = Income, 2 = Health Conditions
   const [currentPage, setCurrentPage] = useState<number>(0);
   const totalPages = 3;
   const progress: number = ((currentPage + 1) / totalPages) * 100;
+
+  console.log(totalMedicalExpenditure);
 
   // Required field keys for each page
   const pageRequirements: (keyof FormData)[][] = [
@@ -56,14 +68,33 @@ export default function Home() {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  function calculateBMI(height: string, weight: string) {
+    const heightVal = +height;
+    const weightVal = +weight;
+    return (weightVal * 703) / heightVal ** 2;
+  }
+
   // Define the pages with their title and content
   const pages = [
     {
       title: "Personal Information",
       content: (
         <div className="space-y-4">
-          {/* Gender field */}
+          {/* Name and Gender fields */}
           <div className="flex flex-col">
+            <label className="mb-2 font-medium text-gray-700" htmlFor="name">
+              What is your name?
+            </label>
+            <input
+              id="name"
+              type="text"
+              value={formData.name}
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                updateField("name", e.target.value)
+              }
+              className="border rounded px-3 py-2 focus:outline-none focus:border-blue-600 mb-2"
+              placeholder="Name"
+            />
             <label className="mb-2 font-medium text-gray-700" htmlFor="gender">
               What is your gender?
             </label>
@@ -76,11 +107,12 @@ export default function Home() {
               className="border rounded px-3 py-2 focus:outline-none focus:border-blue-600"
             >
               <option value="">Select gender</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
+              <option value="0">Male</option>
+              <option value="1">Female</option>
+              <option value="0">Other</option>
             </select>
           </div>
+
           {/* Age field */}
           <div className="flex flex-col">
             <label className="mb-2 font-medium text-gray-700" htmlFor="age">
@@ -96,6 +128,44 @@ export default function Home() {
               className="border rounded px-3 py-2 focus:outline-none focus:border-blue-600"
               placeholder="Your age"
             />
+          </div>
+
+          {/* Height and Weight fields side by side */}
+          <div className="flex flex-row space-x-4">
+            <div className="flex flex-col w-1/2">
+              <label className="font-medium text-gray-700" htmlFor="height">
+                Height (In)
+              </label>
+
+              <input
+                id="heightIn"
+                type="number"
+                value={formData.height}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  updateField("height", e.target.value)
+                }
+                className="border rounded px-3 py-2 focus:outline-none focus:border-blue-600 mt-2"
+                placeholder="Height (in)"
+              />
+            </div>
+            <div className="flex flex-col w-1/2">
+              <label
+                className="mb-2 font-medium text-gray-700"
+                htmlFor="weight"
+              >
+                Weight (lbs)
+              </label>
+              <input
+                id="weight"
+                type="number"
+                value={formData.weight}
+                onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                  updateField("weight", e.target.value)
+                }
+                className="border rounded px-3 py-2 focus:outline-none focus:border-blue-600"
+                placeholder="Weight"
+              />
+            </div>
           </div>
         </div>
       ),
@@ -138,8 +208,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="chronicConditions"
-                  value="yes"
-                  checked={formData.chronicConditions === "yes"}
+                  value="1"
+                  checked={formData.chronicConditions === "1"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("chronicConditions", e.target.value)
                   }
@@ -151,8 +221,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="chronicConditions"
-                  value="no"
-                  checked={formData.chronicConditions === "no"}
+                  value="0"
+                  checked={formData.chronicConditions === "0"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("chronicConditions", e.target.value)
                   }
@@ -173,8 +243,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="pregnant"
-                  value="yes"
-                  checked={formData.pregnant === "yes"}
+                  value="1"
+                  checked={formData.pregnant === "1"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("pregnant", e.target.value)
                   }
@@ -186,8 +256,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="pregnant"
-                  value="no"
-                  checked={formData.pregnant === "no"}
+                  value="0"
+                  checked={formData.pregnant === "0"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("pregnant", e.target.value)
                   }
@@ -207,8 +277,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="smoke"
-                  value="yes"
-                  checked={formData.smoke === "yes"}
+                  value="1"
+                  checked={formData.smoke === "1"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("smoke", e.target.value)
                   }
@@ -220,8 +290,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="smoke"
-                  value="no"
-                  checked={formData.smoke === "no"}
+                  value="0"
+                  checked={formData.smoke === "0"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("smoke", e.target.value)
                   }
@@ -241,8 +311,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="specialistVisits"
-                  value="yes"
-                  checked={formData.specialistVisits === "yes"}
+                  value="1"
+                  checked={formData.specialistVisits === "1"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("specialistVisits", e.target.value)
                   }
@@ -254,8 +324,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="specialistVisits"
-                  value="no"
-                  checked={formData.specialistVisits === "no"}
+                  value="0"
+                  checked={formData.specialistVisits === "0"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("specialistVisits", e.target.value)
                   }
@@ -311,8 +381,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="travel"
-                  value="yes"
-                  checked={formData.travel === "yes"}
+                  value="1"
+                  checked={formData.travel === "1"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("travel", e.target.value)
                   }
@@ -324,8 +394,8 @@ export default function Home() {
                 <input
                   type="radio"
                   name="travel"
-                  value="no"
-                  checked={formData.travel === "no"}
+                  value="0"
+                  checked={formData.travel === "0"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("travel", e.target.value)
                   }
@@ -344,20 +414,50 @@ export default function Home() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     console.log("Final form data:", formData);
+
     // Add your submission logic here
   };
+
+  async function submitUserForm(e: FormEvent) {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      const bmi = calculateBMI(formData.height, formData.weight);
+      const response = await fetch(`${apiUrl}/predict`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          age: +formData.age,
+          sex: formData.gender,
+          bmi: bmi,
+          children: 0,
+          smoker: formData.smoke,
+        }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to fetch prediction");
+      }
+      const data = await response.json();
+      setTotalMedicalExpenditure(data.prediction);
+    } catch (error) {
+      setIsLoading(false);
+      console.log("error sending form data to backend: ", error);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white p-6">
       {/* Progress bar with blue-600 fill */}
       <div className="flex justify-center mb-6">
-        <Progress value={progress} className="w-full [&>div]:bg-blue-600" />
+        <Progress value={progress} className="w-full [&>div]:bg-blue" />
       </div>
       <div className="max-w-lg mx-auto">
         <h2 className="text-2xl font-bold text-center mb-6">
           {pages[currentPage].title}
         </h2>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={submitUserForm}>
           <div className="mb-6">{pages[currentPage].content}</div>
           <div className="flex justify-between">
             {currentPage > 0 ? (
@@ -378,7 +478,7 @@ export default function Home() {
                 disabled={!pageIsValid}
                 className={`px-4 py-2 rounded ml-auto ${
                   pageIsValid
-                    ? "bg-blue-600 hover:bg-blue-700 text-white"
+                    ? "bg-blue hover:bg-blue-700 text-white"
                     : "bg-gray-300 text-gray-800 cursor-not-allowed"
                 }`}
               >
