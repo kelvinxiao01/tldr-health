@@ -411,16 +411,11 @@ export default function Home() {
   ];
 
   // Handle final form submission
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    console.log("Final form data:", formData);
-
-    // Add your submission logic here
-  };
 
   async function submitUserForm(e: FormEvent) {
     e.preventDefault();
     setIsLoading(true);
+    console.log(isLoading);
     try {
       const bmi = calculateBMI(formData.height, formData.weight);
       const response = await fetch(`${apiUrl}/predict`, {
