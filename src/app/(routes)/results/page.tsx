@@ -18,30 +18,32 @@ function ResultsContent() {
   const sexVal = Number(sexParam) == 1 ? "I am female" : "I am a male";
   const bmiVal = bmiParam ? `My bmi is ${Number(bmiParam)}` : 0;
 
+  let insurPlan;
+
   if (predictionVal <= 3172) {
-    var insurPlan = "ambetter bronze";
+    insurPlan = "ambetter bronze";
   } else if (predictionVal > 3172 && predictionVal <= 5155) {
-    var insurPlan = "healthfirst bronze";
+    insurPlan = "healthfirst bronze";
   } else if (predictionVal > 5155 && predictionVal <= 7139) {
-    var insurPlan = "anthem bronze";
+    insurPlan = "anthem bronze";
   } else if (predictionVal > 7139 && predictionVal <= 9122) {
-    var insurPlan = "oscar bronze";
+    insurPlan = "oscar bronze";
   } else if (predictionVal > 9122 && predictionVal <= 11106) {
-    var insurPlan = "healthfirst silver";
+    insurPlan = "healthfirst silver";
   } else if (predictionVal > 11106 && predictionVal <= 13089) {
-    var insurPlan = "anthem silver";
+    insurPlan = "anthem silver";
   } else if (predictionVal > 13089 && predictionVal <= 15073) {
-    var insurPlan = "ambetter silver";
+    insurPlan = "ambetter silver";
   } else if (predictionVal > 15073 && predictionVal <= 17056) {
-    var insurPlan = "oscar silver";
+    insurPlan = "oscar silver";
   } else if (predictionVal > 17056 && predictionVal <= 19040) {
-    var insurPlan = "healthfirst gold";
+    insurPlan = "healthfirst gold";
   } else if (predictionVal > 19040 && predictionVal <= 21023) {
-    var insurPlan = "ambetter gold";
+    insurPlan = "ambetter gold";
   } else if (predictionVal > 21023 && predictionVal <= 23007) {
-    var insurPlan = "anthem gold";
+    insurPlan = "anthem gold";
   } else {
-    var insurPlan = "oscar gold";
+    insurPlan = "oscar gold";
   }
 
   const smokeVal = Number(smokeParam) == 0 ? "No" : "Yes";
