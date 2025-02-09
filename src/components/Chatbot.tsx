@@ -74,20 +74,18 @@ function Chatbot({ age, sex, bmi, smoke }: ChatbotProps) {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 w-80 bg-white shadow-lg border p-4 rounded">
-      <h3 className="mb-2 text-lg font-semibold">Chatbot</h3>
-      <div className="mb-2 h-48 overflow-y-auto border p-2">
+    <div className="fixed bottom-4 right-4 w-96 bg-white shadow-lg border p-4 rounded">
+      <h3 className="mb-2 text-lg font-semibold">Nick the Chatbot</h3>
+      <div className="mb-2 h-96 overflow-y-auto border p-2">
         {messages.map((msg, index) => (
           <div
             key={index}
             className={msg.sender === "user" ? "text-right" : "text-left"}
           >
             <span
-              className={
-                msg.sender === "user" ? "text-blue-600" : "text-green-600"
-              }
+              className={msg.sender === "user" ? "text-blue" : "text-green-600"}
             >
-              {msg.sender === "user" ? "You" : "Bot"}
+              {msg.sender === "user" ? "You" : "Nick"}
             </span>
             {": "}
             {msg.text}
