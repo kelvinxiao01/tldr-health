@@ -22,30 +22,103 @@ function ResultsContent() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue text-black">
-      {predictionVal > 16640 && (
+      {predictionVal <= 3172 && (
         <Image
-          src="/results-graphics/1.jpg"
+          src="/results-graphics/1.png"
           width={2000}
           height={1000}
           alt="tier 1"
         />
       )}
-      {predictionVal <= 16640 && predictionVal > 4640 && (
+      {predictionVal > 3172 && predictionVal <= 5155 && (
         <Image
-          src="/results-graphics/2.jpg"
+          src="/results-graphics/2.png"
           width={2000}
           height={1000}
-          alt="tier 2"
+          alt="tier 1"
         />
       )}
-      {predictionVal <= 4640 && (
+      {predictionVal > 5155 && predictionVal <= 7139 && (
         <Image
-          src="/results-graphics/3.jpg"
+          src="/results-graphics/3.png"
           width={2000}
           height={1000}
-          alt="tier 3"
+          alt="tier 1"
         />
       )}
+      {predictionVal > 7139 && predictionVal <= 9122 && (
+        <Image
+          src="/results-graphics/4.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 9122 && predictionVal <= 11106 && (
+        <Image
+          src="/results-graphics/5.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 11106 && predictionVal <= 13089 && (
+        <Image
+          src="/results-graphics/6.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 13089 && predictionVal <= 15073 && (
+        <Image
+          src="/results-graphics/7.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 15073 && predictionVal <= 17056 && (
+        <Image
+          src="/results-graphics/8.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 17056 && predictionVal <= 19040 && (
+        <Image
+          src="/results-graphics/9.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 19040 && predictionVal <= 21023 && (
+        <Image
+          src="/results-graphics/10.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 21023 && predictionVal <= 23007 && (
+        <Image
+          src="/results-graphics/11.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal > 23007 && (
+        <Image
+          src="/results-graphics/12.png"
+          width={2000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+
       <Chatbot age={ageVal} sex={sexVal} bmi={bmiVal} smoke={smokeVal} />
     </div>
   );
