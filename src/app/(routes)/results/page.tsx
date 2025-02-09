@@ -11,7 +11,7 @@ function ResultsContent() {
   const ageParam = searchParams.get("age");
   const sexParam = searchParams.get("sex");
   const bmiParam = searchParams.get("bmi");
-  const childrenParam = searchParams.get("children");
+
   const smokeParam = searchParams.get("smoke");
   const predictionVal = predictionParam ? Number(predictionParam) : 0;
   const ageVal = ageParam ? `I am ${Number(ageParam)} years old` : 0;
