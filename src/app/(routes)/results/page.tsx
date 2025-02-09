@@ -1,36 +1,49 @@
 "use client";
-import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react"; // Import reverting arrow
 
-export default function ResultsPage() {
-  const router = useRouter();
+import React, { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import Image from "next/image";
+
+// This component uses the hook that requires suspense.
+function ResultsContent() {
+  const searchParams = useSearchParams();
+  const predictionParam = searchParams.get("prediction");
+  const predictionVal = predictionParam ? Number(predictionParam) : 0;
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue text-black">
-      <div className="bg-white p-8 rounded-xl shadow-lg max-w-lg w-full">
-        <h1 className="text-2xl font-bold text-center mb-4">
-          Here&apos;s the Perfect Plan for You!
-        </h1>
-        <p className="text-lg font-semibold text-center text-gray-700">
-          <span className="text-blue-600">EliteCare Premium Plan</span>
-        </p>
-        <p className="text-md text-gray-600 text-center mt-2">
-          A comprehensive healthcare plan that provides extensive coverage, low
-          deductibles, and access to a wide network of specialists. Perfect for
-          individuals and families looking for reliable, cost-effective
-          coverage.
-        </p>
-
-        {/* Bottom Right Button */}
-        <div className="flex justify-end mt-6">
-          <button
-            onClick={() => router.push("/")}
-            className="flex items-center gap-2 px-6 py-3 bg-orange-500 text-white font-bold rounded-lg shadow-md hover:bg-orange-600 transition"
-          >
-            <ArrowLeft size={20} /> Go Back to Homepage
-          </button>
-        </div>
-      </div>
+      {predictionVal > 16640 && (
+        <Image
+          src="/results-graphics/1.jpg"
+          width={1000}
+          height={1000}
+          alt="tier 1"
+        />
+      )}
+      {predictionVal <= 16640 && predictionVal > 4640 && (
+        <Image
+          src="/results-graphics/2.jpg"
+          width={1000}
+          height={1000}
+          alt="tier 2"
+        />
+      )}
+      {predictionVal <= 4640 && (
+        <Image
+          src="/results-graphics/3.jpg"
+          width={1000}
+          height={1000}
+          alt="tier 3"
+        />
+      )}
     </div>
+  );
+}
+
+export default function ResultsPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ResultsContent />
+    </Suspense>
   );
 }
