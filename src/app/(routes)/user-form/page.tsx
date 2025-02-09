@@ -3,7 +3,8 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Progress } from "@/components/ui/progress";
 import { useRouter } from "next/navigation";
 
-const apiUrl = "http://localhost:8000";
+// const apiUrl = "http://localhost:8000";
+const apiUrl = "https://fastapi-catboost-app-805184794120.us-central1.run.app";
 
 // Define the shape of the form data
 interface FormData {
