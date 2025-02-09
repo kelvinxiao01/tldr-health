@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Progress } from "@/components/ui/progress";
+import { useRouter } from "next/navigation";
 
 const apiUrl = "http://localhost:8000";
 
@@ -21,6 +22,7 @@ interface FormData {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [totalMedicalExpenditure, setTotalMedicalExpenditure] = useState();
   const [formData, setFormData] = useState<FormData>({
@@ -37,7 +39,7 @@ export default function Home() {
     height: "",
     weight: "",
   });
-  
+
   // currentPage: 0 = Personal Information, 1 = Income, 2 = Health Conditions
   const [currentPage, setCurrentPage] = useState<number>(0);
   const totalPages = 3;
@@ -437,6 +439,7 @@ export default function Home() {
       }
       const data = await response.json();
       setTotalMedicalExpenditure(data.prediction);
+      router.push(`/results?prediction=${data.prediction}`);
     } catch (error) {
       setIsLoading(false);
       console.log("error sending form data to backend: ", error);
