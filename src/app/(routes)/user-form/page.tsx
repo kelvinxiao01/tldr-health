@@ -37,6 +37,7 @@ export default function Home() {
     height: "",
     weight: "",
   });
+  
   // currentPage: 0 = Personal Information, 1 = Income, 2 = Health Conditions
   const [currentPage, setCurrentPage] = useState<number>(0);
   const totalPages = 3;
@@ -485,7 +486,7 @@ export default function Home() {
                 disabled={!pageIsValid}
                 className={`px-4 py-2 rounded ml-auto ${
                   pageIsValid
-                    ? "bg-green-600 hover:bg-green-700 text-white"
+                    ? "bg-orange-500 hover:bg-orange-600 text-eggshell"
                     : "bg-gray-300 text-gray-800 cursor-not-allowed"
                 }`}
               >
