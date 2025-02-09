@@ -439,7 +439,11 @@ export default function Home() {
       }
       const data = await response.json();
       setTotalMedicalExpenditure(data.prediction);
-      router.push(`/results?prediction=${data.prediction}`);
+      router.push(
+        `/results?prediction=${data.prediction}&age=${+formData.age}&sex=${
+          formData.gender
+        }&bmi=${bmi}&children=${0}&smoke=${formData.smoke}`
+      );
     } catch (error) {
       setIsLoading(false);
       console.log("error sending form data to backend: ", error);

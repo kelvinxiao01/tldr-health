@@ -3,12 +3,22 @@
 import React, { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Chatbot from "@/components/Chatbot"; // Adjust the path as needed
 
-// This component uses the hook that requires suspense.
 function ResultsContent() {
   const searchParams = useSearchParams();
   const predictionParam = searchParams.get("prediction");
+  const ageParam = searchParams.get("age");
+  const sexParam = searchParams.get("sex");
+  const bmiParam = searchParams.get("bmi");
+  const childrenParam = searchParams.get("children");
+  const smokeParam = searchParams.get("smoke");
   const predictionVal = predictionParam ? Number(predictionParam) : 0;
+  const ageVal = ageParam ? `I am ${Number(ageParam)} years old` : 0;
+  const sexVal = Number(sexParam) == 1 ? "I am female" : "I am a male";
+  const bmiVal = bmiParam ? `My bmi is ${Number(bmiParam)}` : 0;
+  const childrenVal = "I have no children";
+  const smokeVal = Number(smokeParam) == 0 ? "No" : "Yes";
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-blue text-black">
@@ -36,14 +46,23 @@ function ResultsContent() {
           alt="tier 3"
         />
       )}
+      <Chatbot
+        age={ageVal}
+        sex={sexVal}
+        bmi={bmiVal}
+        children={childrenVal}
+        smoke={smokeVal}
+      />
     </div>
   );
 }
 
 export default function ResultsPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ResultsContent />
-    </Suspense>
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <ResultsContent />
+      </Suspense>
+    </>
   );
 }
