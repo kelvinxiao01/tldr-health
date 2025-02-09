@@ -1,5 +1,4 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
