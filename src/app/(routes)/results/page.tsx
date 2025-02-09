@@ -18,6 +18,34 @@ function ResultsContent() {
   const sexVal = Number(sexParam) == 1 ? "I am female" : "I am a male";
   const bmiVal = bmiParam ? `My bmi is ${Number(bmiParam)}` : 0;
 
+  let insurPlan;
+
+  if (predictionVal <= 3172) {
+    insurPlan = "ambetter bronze";
+  } else if (predictionVal > 3172 && predictionVal <= 5155) {
+    insurPlan = "healthfirst bronze";
+  } else if (predictionVal > 5155 && predictionVal <= 7139) {
+    insurPlan = "anthem bronze";
+  } else if (predictionVal > 7139 && predictionVal <= 9122) {
+    insurPlan = "oscar bronze";
+  } else if (predictionVal > 9122 && predictionVal <= 11106) {
+    insurPlan = "healthfirst silver";
+  } else if (predictionVal > 11106 && predictionVal <= 13089) {
+    insurPlan = "anthem silver";
+  } else if (predictionVal > 13089 && predictionVal <= 15073) {
+    insurPlan = "ambetter silver";
+  } else if (predictionVal > 15073 && predictionVal <= 17056) {
+    insurPlan = "oscar silver";
+  } else if (predictionVal > 17056 && predictionVal <= 19040) {
+    insurPlan = "healthfirst gold";
+  } else if (predictionVal > 19040 && predictionVal <= 21023) {
+    insurPlan = "ambetter gold";
+  } else if (predictionVal > 21023 && predictionVal <= 23007) {
+    insurPlan = "anthem gold";
+  } else {
+    insurPlan = "oscar gold";
+  }
+
   const smokeVal = Number(smokeParam) == 0 ? "No" : "Yes";
 
   return (
@@ -119,7 +147,13 @@ function ResultsContent() {
         />
       )}
 
-      <Chatbot age={ageVal} sex={sexVal} bmi={bmiVal} smoke={smokeVal} />
+      <Chatbot
+        age={ageVal}
+        sex={sexVal}
+        bmi={bmiVal}
+        smoke={smokeVal}
+        insurPlan={insurPlan}
+      />
     </div>
   );
 }
