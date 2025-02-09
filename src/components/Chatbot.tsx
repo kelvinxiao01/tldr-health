@@ -13,7 +13,10 @@ interface ChatbotProps {
 
   smoke: string;
 }
-const apiUrl = "http://localhost:8000";
+// const apiUrl = "http://localhost:8000";
+
+const apiUrl = "https://fastapi-catboost-app-805184794120.us-central1.run.app";
+
 function Chatbot({ age, sex, bmi, smoke }: ChatbotProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
