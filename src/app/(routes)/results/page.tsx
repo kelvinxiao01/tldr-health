@@ -15,7 +15,7 @@ function ResultsContent() {
       {predictionVal > 16640 && (
         <Image
           src="/results-graphics/1.jpg"
-          width={1000}
+          width={2000}
           height={1000}
           alt="tier 1"
         />
@@ -23,7 +23,7 @@ function ResultsContent() {
       {predictionVal <= 16640 && predictionVal > 4640 && (
         <Image
           src="/results-graphics/2.jpg"
-          width={1000}
+          width={2000}
           height={1000}
           alt="tier 2"
         />
@@ -31,7 +31,7 @@ function ResultsContent() {
       {predictionVal <= 4640 && (
         <Image
           src="/results-graphics/3.jpg"
-          width={1000}
+          width={2000}
           height={1000}
           alt="tier 3"
         />
