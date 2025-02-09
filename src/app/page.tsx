@@ -1,25 +1,24 @@
 "use client";
-import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export default function LandingPage() {
-  const router = useRouter();
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue text-eggshell px-6">
       <h1 className="text-6xl font-bold mb-6 text-eggshell text-center">
         Welcome to Our Insurance Finder
       </h1>
       <p className="text-2xl text-eggshell text-center max-w-3xl mb-8">
-        Our AI-powered system helps you find the best health insurance plans 
-        based on your unique needs. Get personalized recommendations in just a few steps!
+        Our AI-powered system helps you find the best health insurance plans
+        based on your unique needs. Get personalized recommendations in just a
+        few steps!
       </p>
-      <button
-        onClick={() => router.push("/user-form")}
+      <Link
+        href="/user-form"
         className="flex items-center gap-3 px-8 py-4 bg-orange-500 text-eggshell text-2xl font-bold rounded-lg shadow-md hover:bg-orange-600 transition"
       >
         Get Started <ArrowRight size={28} strokeWidth={2} />
-      </button>
+      </Link>
     </div>
   );
 }
