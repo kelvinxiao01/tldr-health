@@ -16,8 +16,6 @@ interface FormData {
   pregnant: string;
   smoke: string;
   specialistVisits: string;
-  providerPreference: string;
-  travel: string;
   height: string;
   weight: string;
 }
@@ -35,8 +33,6 @@ export default function Home() {
     pregnant: "",
     smoke: "",
     specialistVisits: "",
-    providerPreference: "",
-    travel: "",
     height: "",
     weight: "",
   });
@@ -52,14 +48,7 @@ export default function Home() {
   const pageRequirements: (keyof FormData)[][] = [
     ["gender", "age"],
     ["annualIncome"],
-    [
-      "chronicConditions",
-      "pregnant",
-      "smoke",
-      "specialistVisits",
-      "providerPreference",
-      "travel",
-    ],
+    ["chronicConditions", "pregnant", "smoke", "specialistVisits"],
   ];
 
   // Check if all required fields on the current page are non-empty (after trimming)
@@ -332,76 +321,6 @@ export default function Home() {
                   checked={formData.specialistVisits === "0"}
                   onChange={(e: ChangeEvent<HTMLInputElement>) =>
                     updateField("specialistVisits", e.target.value)
-                  }
-                  className="mr-1"
-                />
-                No
-              </label>
-            </div>
-          </div>
-          {/* Provider preference */}
-          <div>
-            <p className="mb-2 font-medium text-gray-700">
-              Do you prefer having more provider choices or lower costs with a
-              limited network?
-            </p>
-            <div className="flex space-x-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="providerPreference"
-                  value="PPO"
-                  checked={formData.providerPreference === "PPO"}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    updateField("providerPreference", e.target.value)
-                  }
-                  className="mr-1"
-                />
-                PPO
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="providerPreference"
-                  value="HMO"
-                  checked={formData.providerPreference === "HMO"}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    updateField("providerPreference", e.target.value)
-                  }
-                  className="mr-1"
-                />
-                HMO
-              </label>
-            </div>
-          </div>
-          {/* Travel */}
-          <div>
-            <p className="mb-2 font-medium text-gray-700">
-              Do you travel frequently or live in multiple locations throughout
-              the year?
-            </p>
-            <div className="flex space-x-4">
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="travel"
-                  value="1"
-                  checked={formData.travel === "1"}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    updateField("travel", e.target.value)
-                  }
-                  className="mr-1"
-                />
-                Yes
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="radio"
-                  name="travel"
-                  value="0"
-                  checked={formData.travel === "0"}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                    updateField("travel", e.target.value)
                   }
                   className="mr-1"
                 />

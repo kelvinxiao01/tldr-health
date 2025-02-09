@@ -19,11 +19,7 @@ export default function Navbar() {
         </Link>
 
         {/* Right-side Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          <Link href="/about" className="text-eggshell text-lg font-semibold hover:text-gray-300">
-            About
-          </Link>
-        </div>
+        <div className="hidden md:flex items-center space-x-6"></div>
       </div>
     </nav>
   );
