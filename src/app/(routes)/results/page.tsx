@@ -17,7 +17,7 @@ function ResultsContent() {
   const ageVal = ageParam ? `I am ${Number(ageParam)} years old` : 0;
   const sexVal = Number(sexParam) == 1 ? "I am female" : "I am a male";
   const bmiVal = bmiParam ? `My bmi is ${Number(bmiParam)}` : 0;
-  const childrenVal = "I have no children";
+
   const smokeVal = Number(smokeParam) == 0 ? "No" : "Yes";
 
   return (
@@ -46,13 +46,7 @@ function ResultsContent() {
           alt="tier 3"
         />
       )}
-      <Chatbot
-        age={ageVal}
-        sex={sexVal}
-        bmi={bmiVal}
-        children={childrenVal}
-        smoke={smokeVal}
-      />
+      <Chatbot age={ageVal} sex={sexVal} bmi={bmiVal} smoke={smokeVal} />
     </div>
   );
 }

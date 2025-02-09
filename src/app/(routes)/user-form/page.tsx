@@ -442,7 +442,7 @@ export default function Home() {
       router.push(
         `/results?prediction=${data.prediction}&age=${+formData.age}&sex=${
           formData.gender
-        }&bmi=${bmi}&children=${0}&smoke=${formData.smoke}`
+        }&bmi=${bmi}&smoke=${formData.smoke}`
       );
     } catch (error) {
       setIsLoading(false);

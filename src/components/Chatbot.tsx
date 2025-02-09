@@ -10,11 +10,11 @@ interface ChatbotProps {
   age: string | number;
   sex: string;
   bmi: string | number;
-  children: string;
+
   smoke: string;
 }
 const apiUrl = "http://localhost:8000";
-function Chatbot({ age, sex, bmi, children, smoke }: ChatbotProps) {
+function Chatbot({ age, sex, bmi, smoke }: ChatbotProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -33,7 +33,7 @@ function Chatbot({ age, sex, bmi, children, smoke }: ChatbotProps) {
     const userMsg: Message = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
     // Save the current input value before clearing it.
-    const currentInput = input + age + sex + bmi + children + smoke;
+    const currentInput = input + age + sex + bmi + "I have no children" + smoke;
     setInput("");
     setLoading(true);
 
