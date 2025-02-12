@@ -15,12 +15,12 @@ interface ChatbotProps {
 }
 // const apiUrl = "http://localhost:8000";
 
-const apiUrl = "https://fastapi-catboost-app-805184794120.us-central1.run.app";
-
 function Chatbot({ age, sex, bmi, smoke, insurPlan }: ChatbotProps) {
   const [visible, setVisible] = useState<boolean>(false);
   const [input, setInput] = useState<string>("");
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([
+    { sender: "bot", text: "Hi, how may I help you today?" },
+  ]);
   const [loading, setLoading] = useState<boolean>(false);
 
   // Show the chatbot 2 seconds after the component mounts.
@@ -29,13 +29,10 @@ function Chatbot({ age, sex, bmi, smoke, insurPlan }: ChatbotProps) {
     return () => clearTimeout(timer);
   }, []);
 
-  const sendMessage = async () => {
+  async function sendChat() {
     if (!input.trim()) return;
-
-    // Append the user's message.
     const userMsg: Message = { sender: "user", text: input };
     setMessages((prev) => [...prev, userMsg]);
-    // Save the current input value before clearing it.
     const currentInput =
       age +
       sex +
@@ -45,78 +42,91 @@ function Chatbot({ age, sex, bmi, smoke, insurPlan }: ChatbotProps) {
       `I have the ${insurPlan}.` +
       input +
       "Help me with this.";
+    const requestData = { healthHistory: currentInput };
     setInput("");
     setLoading(true);
-
     try {
-      // Send a POST request with the user_query as a query parameter.
-      const response = await fetch(
-        `${apiUrl}/llm_response?user_query=${encodeURIComponent(currentInput)}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch("/api/chatbot", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestData),
+      });
       const data = await response.json();
-      // Assuming the backend now returns a string response,
-      // if the data is an object, you might need to extract the desired field.
-      const botMsg: Message = { sender: "bot", text: data };
+
+      const botMsg: Message = { sender: "bot", text: data.output };
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
-      console.error("Error fetching chatbot response:", error);
+      console.log(error);
       const errorMsg: Message = {
         sender: "bot",
         text: "Sorry, an error occurred.",
       };
       setMessages((prev) => [...prev, errorMsg]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
-  };
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      sendMessage();
+      // sendMessage();
+      sendChat();
     }
   };
 
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-4 right-4 w-96 bg-white shadow-lg border p-4 rounded">
-      <h3 className="mb-2 text-lg font-semibold">Nick the Chatbot</h3>
-      <div className="mb-2 h-96 overflow-y-auto border p-2">
+    <div className="fixed bottom-6 right-6 w-80 md:w-96 bg-white shadow-xl rounded-lg overflow-hidden">
+      {/* Header */}
+      <header className="bg-gray-100 border-b px-4 py-2">
+        <h3 className="text-lg font-medium text-gray-700">Cindy the Chatbot</h3>
+      </header>
+
+      {/* Chat Window */}
+      <div className="p-4 h-80 md:h-96 overflow-y-auto space-y-3">
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={msg.sender === "user" ? "text-right" : "text-left"}
+            className={`flex ${
+              msg.sender === "user" ? "justify-end" : "justify-start"
+            }`}
           >
-            <span
-              className={msg.sender === "user" ? "text-blue" : "text-green-600"}
+            <div
+              className={`max-w-xs px-4 py-2 rounded-lg ${
+                msg.sender === "user"
+                  ? "bg-blue text-blue-800"
+                  : "bg-gray-100 text-gray-800"
+              }`}
             >
-              {msg.sender === "user" ? "You" : "Nick"}
-            </span>
-            {": "}
-            {msg.text}
+              <p className="text-sm">{msg.text}</p>
+            </div>
           </div>
         ))}
-        {loading && <div className="text-gray-500">Loading...</div>}
+        {loading && (
+          <div className="text-center text-gray-500 text-sm">Loading...</div>
+        )}
       </div>
-      <div className="flex">
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
-          placeholder="Type your message..."
-          className="flex-grow border rounded px-2 py-1"
-        />
-        <button
-          onClick={sendMessage}
-          className="ml-2 bg-blue-500 text-white px-3 py-1 rounded"
-        >
-          Send
-        </button>
-      </div>
+
+      {/* Input Area */}
+      <footer className="border-t px-4 py-2 bg-gray-50">
+        <div className="flex">
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Type your message..."
+            className="flex-grow border border-gray-300 rounded-l-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+          <button
+            onClick={sendChat}
+            className="bg-blue-500 hover:bg-blue-600 text-white rounded-r-md px-4 py-2 transition-colors duration-200"
+          >
+            Send
+          </button>
+        </div>
+      </footer>
     </div>
   );
 }
