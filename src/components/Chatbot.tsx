@@ -56,6 +56,7 @@ function Chatbot({ age, sex, bmi, smoke, insurPlan }: ChatbotProps) {
       const botMsg: Message = { sender: "bot", text: data.output };
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
+      console.log(error);
       const errorMsg: Message = {
         sender: "bot",
         text: "Sorry, an error occurred.",
