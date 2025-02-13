@@ -102,7 +102,7 @@ export default function Home() {
               <option value="">Select gender</option>
               <option value="0">Male</option>
               <option value="1">Female</option>
-              <option value="0">Other</option>
+              <option value="2">Other</option>
             </select>
           </div>
 
