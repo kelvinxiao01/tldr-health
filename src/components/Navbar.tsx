@@ -10,7 +10,7 @@ export default function Navbar() {
         {/* Logo Section */}
         <Link href="/">
           <Image
-            src="/images/logo.png"
+            src="/images/tldrcropped.png"
             alt="Website Logo"
             width={120}
             height={40}
