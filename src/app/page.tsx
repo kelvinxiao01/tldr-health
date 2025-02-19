@@ -7,7 +7,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue text-eggshell px-6">
       <h1 className="text-6xl font-bold mb-6 text-eggshell text-center">
-        Find your best match with
+        Find Your Best Match With
       </h1>
       <Image
         src="/images/tldrcropped.png"
